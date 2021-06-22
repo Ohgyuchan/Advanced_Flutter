@@ -1,16 +1,22 @@
+import 'package:advanced_flutter/screens/profile_screen.dart';
+import 'package:advanced_flutter/screens/search_screen.dart';
+import 'package:advanced_flutter/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key, required this.title}) : super(key: key);
+import 'chat_screen.dart';
+import 'feed_screen.dart';
+
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -25,24 +31,20 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      body: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            children: <Widget>[
+              FeedScreen(),
+              SearchScreen(),
+              ChatScreen(),
+              ProfileScreen(),
+            ],
+          ),
+          bottomNavigationBar: BottomBar(),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

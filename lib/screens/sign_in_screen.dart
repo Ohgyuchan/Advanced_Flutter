@@ -110,7 +110,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                   currentUser = user;
 
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => HomePage(title: user.displayName.toString(),)),
+                    MaterialPageRoute(builder: (context) => HomeScreen(title: user.displayName.toString(),)),
                   );
                 }
               },
