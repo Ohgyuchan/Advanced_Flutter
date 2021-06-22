@@ -1,17 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:advanced_flutter/models/comment_model.dart';
 import 'package:advanced_flutter/models/post_model.dart';
 
 class ViewPostScreen extends StatefulWidget {
-  final Post post;
-
-  ViewPostScreen({required this.post});
+  DocumentSnapshot document;
+  ViewPostScreen({required this.document});
 
   @override
-  _ViewPostScreenState createState() => _ViewPostScreenState();
+  _ViewPostScreenState createState() => _ViewPostScreenState(document: document);
 }
 
 class _ViewPostScreenState extends State<ViewPostScreen> {
+  DocumentSnapshot document;
+  _ViewPostScreenState({required this.document});
+
   Widget _buildComment(int index) {
     return Padding(
       padding: EdgeInsets.all(10.0),
@@ -21,20 +24,14 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
           height: 50.0,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black45,
-                offset: Offset(0, 2),
-                blurRadius: 6.0,
-              ),
-            ],
+
           ),
           child: CircleAvatar(
             child: ClipOval(
               child: Image(
                 height: 50.0,
                 width: 50.0,
-                image: AssetImage(comments[index].authorImageUrl),
+                image: AssetImage(document['imgA']),
                 fit: BoxFit.cover,
               ),
             ),
@@ -97,13 +94,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   height: 50.0,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black45,
-                                        offset: Offset(0, 2),
-                                        blurRadius: 6.0,
-                                      ),
-                                    ],
+
                                   ),
                                   child: CircleAvatar(
                                     child: ClipOval(
@@ -111,19 +102,19 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                         height: 50.0,
                                         width: 50.0,
                                         image: AssetImage(
-                                            widget.post.authorImageUrl),
+                                            document['imgA']),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
                                 ),
                                 title: Text(
-                                  widget.post.authorName,
+                                  document['name'],
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                subtitle: Text(widget.post.timeAgo),
+                                subtitle: Text(document['time']),
                                 trailing: IconButton(
                                   icon: Icon(Icons.more_horiz),
                                   color: Colors.black,
@@ -141,15 +132,9 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             height: 400.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45,
-                                  offset: Offset(0, 5),
-                                  blurRadius: 8.0,
-                                ),
-                              ],
+
                               image: DecorationImage(
-                                image: AssetImage(widget.post.imageUrl),
+                                image: AssetImage(document['imgURL']),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
@@ -246,13 +231,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                offset: Offset(0, -2),
-                blurRadius: 6.0,
-              ),
-            ],
+
             color: Colors.white,
           ),
           child: Padding(
@@ -276,20 +255,14 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                   height: 48.0,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black45,
-                        offset: Offset(0, 2),
-                        blurRadius: 6.0,
-                      ),
-                    ],
+
                   ),
                   child: CircleAvatar(
                     child: ClipOval(
                       child: Image(
                         height: 48.0,
                         width: 48.0,
-                        image: AssetImage(widget.post.authorImageUrl),
+                        image: AssetImage(widget.document['imgA']),
                         fit: BoxFit.cover,
                       ),
                     ),
