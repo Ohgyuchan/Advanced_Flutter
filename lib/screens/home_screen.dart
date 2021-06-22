@@ -1,5 +1,5 @@
 import 'package:advanced_flutter/screens/profile_screen.dart';
-import 'package:advanced_flutter/screens/search_screen.dart';
+import 'package:advanced_flutter/screens/shop_screen.dart';
 import 'package:advanced_flutter/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               FeedScreen(),
-              SearchScreen(),
+              ShopScreen(),
               ChatScreen(),
               ProfileScreen(),
             ],
