@@ -14,48 +14,50 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 16.0,
-          right: 16.0,
-          bottom: 20.0,
-        ),
-        child: Column(
-          children: [
-            Row(),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                    flex: 1,
-                    child: Image.asset(
-                      'assets/brocoli_logo.jpg',
-                      height: 200,
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 16.0,
+            right: 16.0,
+            bottom: 20.0,
+          ),
+          child: Column(
+            children: [
+              Row(),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      child: Image.asset(
+                        'assets/brocoli_logo.jpg',
+                        height: 200,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                ],
+                    SizedBox(height: 20),
+                  ],
+                ),
               ),
-            ),
-            FutureBuilder(
-              future: Authentication.initializeFirebase(context: context),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Error initializing Firebase');
-                } else if (snapshot.connectionState == ConnectionState.done) {
-                  return GoogleSignInButton();
-                }
-                return CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.orangeAccent,
-                  ),
-                );
-              },
-            ),
-          ],
+              FutureBuilder(
+                future: Authentication.initializeFirebase(context: context),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error initializing Firebase');
+                  } else if (snapshot.connectionState == ConnectionState.done) {
+                    return GoogleSignInButton();
+                  }
+                  return CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Colors.orangeAccent,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
