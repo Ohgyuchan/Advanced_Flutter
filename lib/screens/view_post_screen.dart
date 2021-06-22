@@ -21,13 +21,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
           height: 50.0,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black45,
-                offset: Offset(0, 2),
-                blurRadius: 6.0,
-              ),
-            ],
+
           ),
           child: CircleAvatar(
             child: ClipOval(
@@ -97,13 +91,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   height: 50.0,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black45,
-                                        offset: Offset(0, 2),
-                                        blurRadius: 6.0,
-                                      ),
-                                    ],
+
                                   ),
                                   child: CircleAvatar(
                                     child: ClipOval(
@@ -141,13 +129,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             height: 400.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black45,
-                                  offset: Offset(0, 5),
-                                  blurRadius: 8.0,
-                                ),
-                              ],
+
                               image: DecorationImage(
                                 image: AssetImage(widget.post.imageUrl),
                                 fit: BoxFit.fitWidth,
@@ -246,13 +228,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                offset: Offset(0, -2),
-                blurRadius: 6.0,
-              ),
-            ],
+
             color: Colors.white,
           ),
           child: Padding(
@@ -276,13 +252,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                   height: 48.0,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black45,
-                        offset: Offset(0, 2),
-                        blurRadius: 6.0,
-                      ),
-                    ],
+
                   ),
                   child: CircleAvatar(
                     child: ClipOval(

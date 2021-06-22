@@ -13,7 +13,7 @@ class _FeedScreenState extends State<FeedScreen> {
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: Container(
         width: double.infinity,
-        height: 560.0,
+        height: 380.0,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(25.0),
@@ -30,13 +30,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       height: 50.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black45,
-                            offset: Offset(0, 2),
-                            blurRadius: 6.0,
-                          ),
-                        ],
+
                       ),
                       child: CircleAvatar(
                         child: ClipOval(
@@ -77,16 +71,10 @@ class _FeedScreenState extends State<FeedScreen> {
                     child: Container(
                       margin: EdgeInsets.all(10.0),
                       width: double.infinity,
-                      height: 400.0,
+                      height: 200.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black45,
-                            offset: Offset(0, 5),
-                            blurRadius: 8.0,
-                          ),
-                        ],
+
                         image: DecorationImage(
                           image: AssetImage(posts[index].imageUrl),
                           fit: BoxFit.fitWidth,
@@ -218,13 +206,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   height: 60.0,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black45,
-                        offset: Offset(0, 2),
-                        blurRadius: 6.0,
-                      ),
-                    ],
+
                   ),
                   child: CircleAvatar(
                     child: ClipOval(
