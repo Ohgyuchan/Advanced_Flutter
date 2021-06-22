@@ -13,10 +13,6 @@ class Begun extends StatelessWidget {
       title: 'Begun',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primaryColor: Color(0xff009EDB),
-          textTheme:
-          Theme.of(context).textTheme.apply(fontFamily: 'Open Sans')),
-      home: SignInScreen(),
     );
   }
 }
