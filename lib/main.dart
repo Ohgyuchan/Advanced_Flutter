@@ -12,7 +12,8 @@ class Begun extends StatelessWidget {
     return MaterialApp(
       title: 'Begun',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      theme: ThemeData(),
+      home: SignInScreen(),
     );
   }
 }
