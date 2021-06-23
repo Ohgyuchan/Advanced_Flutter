@@ -16,13 +16,6 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: Theme.of(context).platform == TargetPlatform.iOS
-          ? BoxDecoration(
-        border: Border(
-          top: BorderSide(color: Colors.grey),
-        ),
-      )
-          : null,
       child: Column(
         children: [
           Flexible(
