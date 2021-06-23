@@ -51,36 +51,8 @@ class _FeedScreenState extends State<FeedScreen> {
                 ],
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: 100.0,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: stories.length + 1,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return SizedBox(width: 10.0);
-                  }
-                  return Container(
-                    margin: EdgeInsets.all(10.0),
-                    width: 60.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: CircleAvatar(
-                      child: ClipOval(
-                        child: Image(
-                          height: 60.0,
-                          width: 60.0,
-                          image: AssetImage(stories[index - 1]),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+            SizedBox(
+              height: 15,
             ),
             Container(
               height: 500,
@@ -176,7 +148,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                                         onPressed: () => print('Like post'),
                                                       ),
                                                       Text(
-                                                        '2,515',
+                                                        document['likes'].toString(),
                                                         style: TextStyle(
                                                           fontSize: 14.0,
                                                           fontWeight: FontWeight.w600,
@@ -194,7 +166,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                                             Navigator.push(context, MaterialPageRoute(builder: (_) => ViewPostScreen(document: document,))),
                                                       ),
                                                       Text(
-                                                        '350',
+                                                        document['comments'].toString(),
                                                         style: TextStyle(
                                                           fontSize: 14.0,
                                                           fontWeight: FontWeight.w600,
