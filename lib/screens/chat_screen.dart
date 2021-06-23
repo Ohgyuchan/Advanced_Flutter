@@ -18,10 +18,10 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     return Container(
       decoration: Theme.of(context).platform == TargetPlatform.iOS
           ? BoxDecoration(
-              border: Border(
-                top: BorderSide(color: Colors.grey),
-              ),
-            )
+        border: Border(
+          top: BorderSide(color: Colors.grey),
+        ),
+      )
           : null,
       child: Column(
         children: [
@@ -60,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 },
                 onSubmitted: _isComposing ? _handleSubmitted : null,
                 decoration:
-                    InputDecoration.collapsed(hintText: 'Send a message'),
+                InputDecoration.collapsed(hintText: 'Send a message'),
                 focusNode: _focusNode,
               ),
             ),
@@ -116,7 +116,7 @@ class ChatMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizeTransition(
       sizeFactor:
-          CurvedAnimation(parent: animationController, curve: Curves.easeOut),
+      CurvedAnimation(parent: animationController, curve: Curves.easeOut),
       axisAlignment: 0.0,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10.0),
