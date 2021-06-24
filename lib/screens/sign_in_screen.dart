@@ -1,15 +1,11 @@
 import 'package:advanced_flutter/utils/authentication.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'home_screen.dart';
 
 late User currentUser;
-late String hrUid;
-late String hmUid;
-late bool posted;
-late bool approved;
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -17,6 +13,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,8 +64,9 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+
   }
-}
+  }
 
 class GoogleSignInButton extends StatefulWidget {
   @override
@@ -110,7 +109,10 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                   currentUser = user;
 
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => HomeScreen(title: user.displayName.toString(),)),
+                    MaterialPageRoute(
+                        builder: (context) => HomeScreen(
+                              user: currentUser,
+                            )),
                   );
                 }
               },
