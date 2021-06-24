@@ -28,7 +28,7 @@ class BottomBar extends StatelessWidget {
                 size: 15,
               ),
               child: Text(
-                '검색',
+                '쇼핑',
                 style: TextStyle(fontSize: 8),
               ),
             ),

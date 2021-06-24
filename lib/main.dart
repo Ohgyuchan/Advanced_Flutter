@@ -1,4 +1,3 @@
-import 'package:advanced_flutter/helper/binding.dart';
 import 'package:advanced_flutter/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +18,6 @@ class Begun extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => SignInScreen())
       ],
-    );
+);
   }
 }

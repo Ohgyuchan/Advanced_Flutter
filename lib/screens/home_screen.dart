@@ -1,5 +1,5 @@
 import 'package:advanced_flutter/screens/profile_screen.dart';
-import 'package:advanced_flutter/screens/search_screen.dart';
+import 'package:advanced_flutter/screens/shop_screen.dart';
 import 'package:advanced_flutter/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,20 +17,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: DefaultTabController(
         length: 4,
         child: Scaffold(
@@ -38,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               FeedScreen(),
-              SearchScreen(),
+              ShopScreen(),
               ChatScreen(),
               ProfileScreen(),
             ],
