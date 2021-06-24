@@ -26,7 +26,6 @@ class _FeedScreenState extends State<FeedScreen> {
             ? Center(child: CircularProgressIndicator())
             : GridView.builder(
           padding: EdgeInsets.all(16.0),
-
           itemCount: snapshot.data!.docs.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisSpacing: 15,
@@ -35,6 +34,7 @@ class _FeedScreenState extends State<FeedScreen> {
           itemBuilder: (context, index) {
             DocumentSnapshot data = snapshot.data!.docs[index];
             return FeedModel(
+              isProfile: false,
               uid: data['uid'],
               name: data['name'],
               profileImageUrl: data['profileImageUrl'],

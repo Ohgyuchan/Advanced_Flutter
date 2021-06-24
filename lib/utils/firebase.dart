@@ -4,22 +4,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 CollectionReference post = FirebaseFirestore.instance.collection('post');
 
 Future<void> addFeed(
-  String description,
+  String description, String imageURL
 ) {
   return post
       .add({
   'uid': currentUser.uid,
   'name': currentUser.displayName,
   'profileImageUrl': currentUser.photoURL,
-  'imageUrl': 'https://i.stack.imgur.com/GsDIl.jpg',
+  'imageUrl': imageURL,
   'createdTime': new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
   'description': description,
   'comments': 0,
   'like': '0',
   'likes': 0,
   })
-      .then((value) => print("Post Added"))
-      .catchError((error) => print("Failed to add Post: $error"));
+      .then((value) async{
+        post.doc(value.id).set({
+          'docId': value.id,
+          'filePath' : value.id + '.jpg',
+        }, SetOptions(merge: true));
+  });
 }
 
 Future<void> updatePosted(String uid, bool posted) async {

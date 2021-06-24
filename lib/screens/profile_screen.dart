@@ -1,55 +1,50 @@
+import 'package:advanced_flutter/models/feed_model.dart';
+import 'package:advanced_flutter/screens/sign_in_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:hashtagable/hashtagable.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class MyProfileScreen extends StatelessWidget {
+  const MyProfileScreen({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                /// Tagged text only to be shown
-                HashTagText(
-                  text: "#Welcome to #hashtagable\n This is #ReadOnlyText",
-                  basicStyle: TextStyle(fontSize: 22, color: Colors.black),
-                  decoratedStyle: TextStyle(fontSize: 22, color: Colors.red),
-                  textAlign: TextAlign.center,
-                  onTap: (text) {
-                    print(text);
-                  },
-                ),
-                HashTagTextField(
-                  basicStyle: TextStyle(fontSize: 15, color: Colors.black),
-                  decoratedStyle: TextStyle(fontSize: 15, color: Colors.blue),
-                  keyboardType: TextInputType.multiline,
+    return _buildMyProfileStream();
+  }
 
-                  /// Called when detection (word starts with #, or # and @) is being typed
-                  onDetectionTyped: (text) {
-                    print(text);
-                  },
+  Widget _buildMyProfileStream() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection("post")
+          .where('uid', isEqualTo: '${currentUser.uid}')
+          .snapshots(),
+      builder: (context, snapshot) {
+        return !snapshot.hasData
+            ? Center(child: CircularProgressIndicator())
+            : GridView.builder(
+          padding: EdgeInsets.all(16.0),
 
-                  /// Called when detection is fully typed
-                  onDetectionFinished: () {
-                    print("detection finished");
-                  },
-                  maxLines: null,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+          itemCount: snapshot.data!.docs.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 18.0 / 18.0, crossAxisCount: 3),
+          itemBuilder: (context, index) {
+            DocumentSnapshot data = snapshot.data!.docs[index];
+            return FeedModel(
+              isProfile: true,
+              uid: data['uid'],
+              name: data['name'],
+              profileImageUrl: data['profileImageUrl'],
+              imageUrl: data['imageUrl'],
+              createdTime: data['createdTime'],
+              description: data['description'],
+              comments: data['comments'],
+              like: data['like'],
+              likes: data['likes'],
+              docId: data.id,
+              documentSnapshot: data,
+            );
+          },
+        );
+      },
     );
-
-
-
   }
 }

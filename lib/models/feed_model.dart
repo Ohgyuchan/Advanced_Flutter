@@ -1,8 +1,10 @@
+import 'package:advanced_flutter/screens/sign_in_screen.dart';
 import 'package:advanced_flutter/screens/view_post_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FeedModel extends StatefulWidget {
+  late final bool isProfile;
   late final String uid;
   late final String name;
   late final String profileImageUrl;
@@ -16,6 +18,7 @@ class FeedModel extends StatefulWidget {
   late final DocumentSnapshot documentSnapshot;
 
   FeedModel({
+    required this.isProfile,
     required this.uid,
     required this.name,
     required this.profileImageUrl,
@@ -36,25 +39,67 @@ class FeedModel extends StatefulWidget {
 class _FeedModelState extends State<FeedModel> {
   @override
   Widget build(BuildContext context) {
+    return widget.isProfile ? _buildProfileScreen() : _buildFeedScreen();
+  }
+
+  Widget _buildFeedScreen() {
+    return InkWell(
+        child: Card(
+          elevation: 0,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                AspectRatio(
+                  aspectRatio: 18 / 11,
+                  child: Hero(
+                    tag: 'img-${widget.uid}',
+                    child: Image.network(
+                      widget.profileImageUrl,
+                      height: 200,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                SizedBox(height: 16),
+                _buildCardRow(context, '', widget.name),
+                SizedBox(
+                    height: 8.0 / MediaQuery.of(context).size.height * 0.2),
+                _buildCardRow(context, '', widget.createdTime.toString()),
+                SizedBox(
+                    height: 4.0 / MediaQuery.of(context).size.height * 0.2),
+                _buildCardRow(context, '', widget.description),
+              ],
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ViewPostScreen(feedModel: widget),
+            ),
+          );
+          print('clicked');
+        });
+  }
+
+  Widget _buildProfileScreen() {
     return InkWell(
         child: SizedBox(
           child: Card(
+            elevation: 0,
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(height: 16),
-                  SizedBox(height: 16),
-                  _buildCardRow(context, '', widget.name),
-                  SizedBox(
-                      height: 8.0 / MediaQuery.of(context).size.height * 0.2),
-                  _buildCardRow(context, '', widget.createdTime.toString()),
-                  SizedBox(
-                      height: 4.0 / MediaQuery.of(context).size.height * 0.2),
-                  _buildCardRow(context, '', widget.description),
-                ],
+            child: Container(
+              child: Hero(
+                tag: 'img-${widget.docId}',
+                child: Image.network(
+                  widget.profileImageUrl,
+                  height: 200,
+                  fit: BoxFit.fitWidth,
+                ),
               ),
             ),
           ),
@@ -62,8 +107,7 @@ class _FeedModelState extends State<FeedModel> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) =>
-                  ViewPostScreen(feedModel: widget),
+              builder: (context) => ViewPostScreen(feedModel: widget),
             ),
           );
           print('clicked');
