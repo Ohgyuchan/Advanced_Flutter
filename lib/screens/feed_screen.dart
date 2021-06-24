@@ -1,6 +1,8 @@
+import 'package:advanced_flutter/Management/FeedController.dart';
 import 'package:advanced_flutter/screens/view_post_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FeedScreen extends StatefulWidget {
   @override
@@ -56,6 +58,7 @@ class _FeedScreenState extends State<FeedScreen> {
             Container(
               height: 500,
               child: StreamBuilder<QuerySnapshot>(
+
                 stream: FirebaseFirestore.instance
                     .collection('post')
                     .snapshots(),
@@ -196,6 +199,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 },
               ),
             ),
+
           ],
         ),
       ),

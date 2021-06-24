@@ -7,16 +7,21 @@ import 'package:advanced_flutter/models/feed_model.dart';
 import 'AuthController.dart';
 
 class FeedController extends GetxController{
-  RxList<FeedModel> feedList = RxList<FeedModel>();
+
+  static FeedController instance = Get.find();
+  RxList<FeedModel> feedList = RxList<FeedModel>([]);
+  String collection = "feedLists";
 
   // ignore: invalid_use_of_protected_member
+  
   List<FeedModel> get feeds => feedList.value;
 
-  //static FeedController instance = Get.find();
+  //
 
 
   @override
-  void onInit() {
+  void onReady() {
+    super.onReady();
     String uid = currentUser.uid;
     feedList
         .bindStream(FeedRepository().feedStream(uid)); //stream coming from firebase

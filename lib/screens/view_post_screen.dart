@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hashtagable/hashtagable.dart';
 
 class ViewPostScreen extends StatefulWidget {
   DocumentSnapshot document;
@@ -151,6 +152,34 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                               ),
                             ),
                           ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            HashTagText(
+                            text: "#Advenced_Flutter #Too_Easy",
+                            decoratedStyle: TextStyle(fontSize: 14, color: Colors.blue),
+                            basicStyle: TextStyle(fontSize: 14, color: Colors.black),
+                            onTap: (text){
+                              print(text);
+                            },
+                          ),
+                            HashTagTextField(
+                              basicStyle: TextStyle(fontSize: 15, color: Colors.black),
+                              decoratedStyle: TextStyle(fontSize: 15, color: Colors.blue),
+                              keyboardType: TextInputType.multiline,
+
+                              /// Called when detection (word starts with #, or # and @) is being typed
+                              onDetectionTyped: (text) {
+                                print(text);
+                              },
+
+                              /// Called when detection is fully typed
+                              onDetectionFinished: () {
+                                print("detection finished");
+                              },
+                            ),
+                        ],
                         ),
                         InkWell(
                           onDoubleTap: () => print('Like post'),
@@ -363,6 +392,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                       ),
                     ),
                   ),
+
                   suffixIcon: Container(
                     margin: EdgeInsets.only(right: 4.0),
                     width: 70.0,

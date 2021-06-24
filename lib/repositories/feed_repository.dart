@@ -13,7 +13,7 @@ class FeedRepository {
       var feedCollection =
           await _firebaseFirestore.collection('post').get();
       for (var feed in feedCollection.docs){
-        feeds.add(FeedModel.fromDocumentSnapshot(feed));
+        feeds.add(FeedModel.fromDs(feed));
       }
     } catch (e){
       throw Exception('firebase error');
@@ -29,7 +29,7 @@ class FeedRepository {
         .map((QuerySnapshot query) {
       List<FeedModel> retVal =  [];
       query.docs.forEach((element) {
-        retVal.add(FeedModel.fromDocumentSnapshot(element));
+        retVal.add(FeedModel.fromDs(element));
       });
       return retVal;
     });
