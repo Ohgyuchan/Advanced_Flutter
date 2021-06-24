@@ -29,55 +29,8 @@ class FeedModel extends StatefulWidget {
     required this.documentSnapshot,
   });
 
-<<<<<<< HEAD
-  FeedModel copyWith({
-    required String name,
-    required String imgA,
-    required String imgURL,
-    required String time,
-    required int comments,
-    required String like,
-    required int likes,
-    required DocumentSnapshot documentSnapshot,
-}) {
-    return FeedModel(
-      name: name,
-      imgA: imgA,
-      imgURL: imgURL,
-      time: time,
-      comments: comments,
-      like: like,
-      likes: likes,
-      documentSnapshot: documentSnapshot);
-}
-
-  factory FeedModel.fromDs(dynamic data) {
-    return FeedModel(
-    name: data["name"],
-    imgA: data["imgA"],
-    imgURL: data["imgURL"],
-    time: data["time"],
-    comments: data["comments"],
-    like: data["like"],
-    likes: data["likes"],
-    documentSnapshot: data,
-    );}
-  Map<String, dynamic> toMap(){
-    return{
-      'name': name,
-    'imgA': imgA,
-    'imgURL': imgURL,
-    'time': time,
-    'comments': comments,
-    'like': like,
-    'likes': likes,
-    'documentSnapshot': documentSnapshot,
-    };
-  }
-=======
   @override
   _FeedModelState createState() => _FeedModelState();
->>>>>>> sun
 }
 
 class _FeedModelState extends State<FeedModel> {
