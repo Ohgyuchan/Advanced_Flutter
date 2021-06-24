@@ -2,6 +2,7 @@ import 'package:advanced_flutter/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'screens/sign_in_screen.dart';
 
 void main() {
   runApp(Begun());
