@@ -26,7 +26,6 @@ class _FeedScreenState extends State<FeedScreen> {
             ? Center(child: CircularProgressIndicator())
             : GridView.builder(
           padding: EdgeInsets.all(16.0),
-
           itemCount: snapshot.data!.docs.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisSpacing: 15,

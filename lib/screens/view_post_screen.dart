@@ -75,7 +75,8 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                       child: Image(
                                         height: 50.0,
                                         width: 50.0,
-                                        image: NetworkImage(_feedModel.profileImageUrl),
+                                        image: NetworkImage(
+                                            _feedModel.profileImageUrl),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -102,16 +103,20 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             HashTagText(
-                            text: "#Advenced_Flutter #Too_Easy",
-                            decoratedStyle: TextStyle(fontSize: 14, color: Colors.blue),
-                            basicStyle: TextStyle(fontSize: 14, color: Colors.black),
-                            onTap: (text){
-                              print(text);
-                            },
-                          ),
+                              text: "#Advenced_Flutter #Too_Easy",
+                              decoratedStyle:
+                                  TextStyle(fontSize: 14, color: Colors.blue),
+                              basicStyle:
+                                  TextStyle(fontSize: 14, color: Colors.black),
+                              onTap: (text) {
+                                print(text);
+                              },
+                            ),
                             HashTagTextField(
-                              basicStyle: TextStyle(fontSize: 15, color: Colors.black),
-                              decoratedStyle: TextStyle(fontSize: 15, color: Colors.blue),
+                              basicStyle:
+                                  TextStyle(fontSize: 15, color: Colors.black),
+                              decoratedStyle:
+                                  TextStyle(fontSize: 15, color: Colors.blue),
                               keyboardType: TextInputType.multiline,
 
                               /// Called when detection (word starts with #, or # and @) is being typed
@@ -124,11 +129,10 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                 print("detection finished");
                               },
                             ),
-                        ],
+                          ],
                         ),
                         InkWell(
-                          onDoubleTap: () {
-                          },
+                          onDoubleTap: () {},
                           child: Container(
                             margin: EdgeInsets.all(10.0),
                             width: double.infinity,
@@ -136,7 +140,8 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25.0),
                               image: DecorationImage(
-                                image: AssetImage(_feedModel.imageUrl),
+                                //피드 이미
+                                image: NetworkImage('${currentUser.photoURL}'),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
@@ -153,7 +158,9 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   Row(
                                     children: <Widget>[
                                       IconButton(
-                                        icon: Icon(_isLiked == false ? Icons.favorite_border : Icons.favorite),
+                                        icon: Icon(_isLiked == false
+                                            ? Icons.favorite_border
+                                            : Icons.favorite),
                                         iconSize: 30.0,
                                         onPressed: () {
                                           increaseLike(
@@ -249,35 +256,28 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                     child: CircleAvatar(
                       child: ClipOval(
                         child: Image(
-                          height: 48.0,
-                          width: 48.0,
-                          image: AssetImage(_feedModel.profileImageUrl),
-                          fit: BoxFit.cover,
+                          image: NetworkImage(currentUser.photoURL.toString()),
                         ),
                       ),
                     ),
                   ),
-
                   suffixIcon: Container(
                     margin: EdgeInsets.only(right: 4.0),
                     width: 70.0,
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
+                    child: IconButton(
                       color: Color(0xFF23B66F),
                       onPressed: () async {
                         final String comment = _controller.text;
                         if (_formKey.currentState!.validate()) {
                           addComment(_feedModel.docId, comment);
-                          increaseComments(_feedModel.documentSnapshot, _feedModel.docId);
+                          increaseComments(
+                              _feedModel.documentSnapshot, _feedModel.docId);
                           _controller.clear();
                         }
                       },
-                      child: Icon(
+                      icon: Icon(
                         Icons.send,
                         size: 25.0,
-                        color: Colors.white,
                       ),
                     ),
                   ),
