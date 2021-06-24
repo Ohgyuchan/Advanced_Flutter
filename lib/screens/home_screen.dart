@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: DefaultTabController(
         length: 4,
         child: Scaffold(
+          backgroundColor: Colors.white,
           body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
