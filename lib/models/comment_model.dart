@@ -1,39 +1,11 @@
 class Comment {
-  String authorName;
-  String authorImageUrl;
-  String text;
+  String name;
+  String profileImageUrl;
+  String comment;
 
   Comment({
-    required this.authorName,
-    required this.authorImageUrl,
-    required this.text,
+    required this.name,
+    required this.profileImageUrl,
+    required this.comment,
   });
 }
-
-final List<Comment> comments = [
-  Comment(
-    authorName: 'Angel',
-    authorImageUrl: 'assets/images/user2.jpg',
-    text: 'Loving this photo!!',
-  ),
-  Comment(
-    authorName: 'Charlie',
-    authorImageUrl: 'assets/images/user3.jpg',
-    text: 'One of the best photos of you...',
-  ),
-  Comment(
-    authorName: 'Angelina Martin',
-    authorImageUrl: 'assets/images/user4.jpg',
-    text: 'Can\'t wait for you to post more!',
-  ),
-  Comment(
-    authorName: 'Jax',
-    authorImageUrl: 'assets/images/user1.jpg',
-    text: 'Nice job',
-  ),
-  Comment(
-    authorName: 'Sam Martin',
-    authorImageUrl: 'assets/images/user2.jpg',
-    text: 'Thanks everyone :)',
-  ),
-];

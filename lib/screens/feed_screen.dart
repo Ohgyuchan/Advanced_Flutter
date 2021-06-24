@@ -30,16 +30,17 @@ class _FeedScreenState extends State<FeedScreen> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
-              childAspectRatio: 2.0 / 2.2, crossAxisCount: 3),
+              childAspectRatio: 4.0 / 3.0, crossAxisCount: 1),
           itemBuilder: (context, index) {
             DocumentSnapshot data = snapshot.data!.docs[index];
             return FeedModel(
               uid: data['uid'],
               name: data['name'],
-              imgURL: data['imgURL'],
+              profileImageUrl: data['profileImageUrl'],
+              imageUrl: data['imageUrl'],
               createdTime: data['createdTime'],
               description: data['description'],
-              comments: data['lastMessage'],
+              comments: data['comments'],
               like: data['like'],
               likes: data['likes'],
               docId: data.id,

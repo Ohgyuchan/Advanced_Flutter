@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 class FeedModel extends StatefulWidget {
   late final String uid;
   late final String name;
-  late final String imgURL;
-  late final DateTime createdTime;
+  late final String profileImageUrl;
+  late final String imageUrl;
+  late final Timestamp createdTime;
   late final String description;
   late final int comments;
   late final String like;
@@ -14,11 +15,11 @@ class FeedModel extends StatefulWidget {
   late final String docId;
   late final DocumentSnapshot documentSnapshot;
 
-
   FeedModel({
     required this.uid,
     required this.name,
-    required this.imgURL,
+    required this.profileImageUrl,
+    required this.imageUrl,
     required this.createdTime,
     required this.description,
     required this.comments,
@@ -33,7 +34,6 @@ class FeedModel extends StatefulWidget {
 }
 
 class _FeedModelState extends State<FeedModel> {
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -60,7 +60,13 @@ class _FeedModelState extends State<FeedModel> {
           ),
         ),
         onTap: () {
-          ViewPostScreen(feed: widget,);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  ViewPostScreen(feedModel: widget),
+            ),
+          );
+          print('clicked');
         });
   }
 
