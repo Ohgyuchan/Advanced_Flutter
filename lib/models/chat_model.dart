@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatModel extends StatefulWidget {
-  final String myUid;
   final String yourUid;
   final String yourName;
   final String lastMessage;
@@ -13,7 +12,6 @@ class ChatModel extends StatefulWidget {
   final DocumentSnapshot documentSnapshot;
 
   ChatModel({
-    required this.myUid,
     required this.yourUid,
     required this.yourName,
     required this.lastMessage,
