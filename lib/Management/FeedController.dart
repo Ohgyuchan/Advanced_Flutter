@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import 'package:advanced_flutter/repositories/feed_repository.dart';
 import 'package:advanced_flutter/screens/sign_in_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,7 +30,6 @@ class FeedController extends GetxController{
 
 
 }
-=======
 // import 'package:advanced_flutter/repositories/feed_repository.dart';
 // import 'package:advanced_flutter/screens/sign_in_screen.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
@@ -59,4 +57,3 @@ class FeedController extends GetxController{
 //
 //
 // }
->>>>>>> sun
