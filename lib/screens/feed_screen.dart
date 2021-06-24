@@ -24,13 +24,10 @@ class _FeedScreenState extends State<FeedScreen> {
       builder: (context, snapshot) {
         return !snapshot.hasData
             ? Center(child: CircularProgressIndicator())
-            : GridView.builder(
+            : ListView.builder(
+          scrollDirection: Axis.vertical,
           padding: EdgeInsets.all(16.0),
           itemCount: snapshot.data!.docs.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 15,
-              childAspectRatio: 4.0 / 3.0, crossAxisCount: 1),
           itemBuilder: (context, index) {
             DocumentSnapshot data = snapshot.data!.docs[index];
             return FeedModel(
