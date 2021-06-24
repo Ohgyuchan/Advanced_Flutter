@@ -4,14 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 CollectionReference post = FirebaseFirestore.instance.collection('post');
 
 Future<void> addFeed(
-  String description,
+  String description, String imageURL
 ) {
   return post
       .add({
   'uid': currentUser.uid,
   'name': currentUser.displayName,
   'profileImageUrl': currentUser.photoURL,
-  'imageUrl': 'https://i.stack.imgur.com/GsDIl.jpg',
+  'imageUrl': imageURL,
   'createdTime': new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
   'description': description,
   'comments': 0,
