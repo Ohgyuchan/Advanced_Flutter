@@ -1,6 +1,7 @@
 import 'package:advanced_flutter/utils/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'home_screen.dart';
 
@@ -12,6 +13,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,8 +64,9 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+
   }
-}
+  }
 
 class GoogleSignInButton extends StatefulWidget {
   @override

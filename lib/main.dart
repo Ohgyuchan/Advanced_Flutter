@@ -1,6 +1,8 @@
 import 'package:advanced_flutter/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import 'screens/sign_in_screen.dart';
 
 void main() {
   runApp(Begun());
@@ -9,11 +11,14 @@ void main() {
 class Begun extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Begun',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: SignInScreen(),
-    );
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => SignInScreen())
+      ],
+);
   }
 }

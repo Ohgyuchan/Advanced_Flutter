@@ -1,55 +1,87 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:advanced_flutter/models/comment_model.dart';
-import 'package:advanced_flutter/models/post_model.dart';
 
 class ViewPostScreen extends StatefulWidget {
-  final Post post;
-
-  ViewPostScreen({required this.post});
+  DocumentSnapshot document;
+  ViewPostScreen({required this.document});
 
   @override
-  _ViewPostScreenState createState() => _ViewPostScreenState();
+  _ViewPostScreenState createState() => _ViewPostScreenState(document: document);
 }
 
 class _ViewPostScreenState extends State<ViewPostScreen> {
-  Widget _buildComment(int index) {
-    return Padding(
-      padding: EdgeInsets.all(10.0),
-      child: ListTile(
-        leading: Container(
-          width: 50.0,
-          height: 50.0,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
+  DocumentSnapshot document;
+  _ViewPostScreenState({required this.document});
 
-          ),
-          child: CircleAvatar(
-            child: ClipOval(
-              child: Image(
-                height: 50.0,
-                width: 50.0,
-                image: AssetImage(comments[index].authorImageUrl),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
-        title: Text(
-          comments[index].authorName,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Text(comments[index].text),
-        trailing: IconButton(
-          icon: Icon(
-            Icons.favorite_border,
-          ),
-          color: Colors.grey,
-          onPressed: () => print('Like comment'),
-        ),
-      ),
-    );
+  final _formKey = GlobalKey<FormState>(debugLabel: '_CommentState');
+  final _controller = TextEditingController();
+
+  Future<void> addQuestion(String content) async {
+    FirebaseFirestore question = FirebaseFirestore.instance;
+    final future = question.collection('post').doc(document.id).collection('comments').add({
+      'creationDate': FieldValue.serverTimestamp(),
+      'updateDate': FieldValue.serverTimestamp(),
+      'userId': FirebaseAuth.instance.currentUser!.uid,
+      'email': FirebaseAuth.instance.currentUser!.email,
+      'productId': document.id,
+      'content': content,
+      'name' : document['name'],
+      'imgA' : document['imgA'],
+      'imgURL' : document['imgURL'],
+      'likes' : document['like'].length,
+    });
+  }
+
+  CollectionReference post = FirebaseFirestore.instance.collection('post');
+  Future<void> addCount() {
+    return post
+        .doc(document.id)
+        .set({
+      'name' : document['name'],
+      'imgA' : document['imgA'],
+      'imgURL' : document['imgURL'],
+      'time' : document['time'],
+      'comments': document['comments'] + 1,
+      'likes' : document['like'].length,
+    })
+        .then((value) => print("Product Edited"))
+        .catchError((error) => print("Failed to edit product: $error"));
+  }
+
+  CollectionReference post2 = FirebaseFirestore.instance.collection('post');
+  Future<void> decreaseCount() {
+    return post
+        .doc(document.id)
+        .set({
+      'name' : document['name'],
+      'imgA' : document['imgA'],
+      'imgURL' : document['imgURL'],
+      'time' : document['time'],
+      'comments': document['comments'] - 1,
+      'likes' : document['like'].length,
+    })
+        .then((value) => print("Product Edited"))
+        .catchError((error) => print("Failed to edit product: $error"));
+  }
+
+
+
+  CollectionReference post3 = FirebaseFirestore.instance.collection('post');
+  Future<void> likeIt() async {
+    return post3
+        .doc(document.id)
+        .set({
+      'like' : FieldValue.arrayUnion([document['name']]),
+      'name' : document['name'],
+      'imgA' : document['imgA'],
+      'imgURL' : document['imgURL'],
+      'time' : document['time'],
+      'comments': document['comments'],
+      'likes' : document['like'].length,
+    })
+        .then((value) => print("Product Edited"))
+        .catchError((error) => print("Failed to edit product: $error"));
   }
 
   @override
@@ -91,7 +123,6 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   height: 50.0,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-
                                   ),
                                   child: CircleAvatar(
                                     child: ClipOval(
@@ -99,19 +130,19 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                         height: 50.0,
                                         width: 50.0,
                                         image: AssetImage(
-                                            widget.post.authorImageUrl),
+                                            document['imgA']),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
                                 ),
                                 title: Text(
-                                  widget.post.authorName,
+                                  document['name'],
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                subtitle: Text(widget.post.timeAgo),
+                                subtitle: Text(document['time']),
                                 trailing: IconButton(
                                   icon: Icon(Icons.more_horiz),
                                   color: Colors.black,
@@ -131,13 +162,13 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                               borderRadius: BorderRadius.circular(25.0),
 
                               image: DecorationImage(
-                                image: AssetImage(widget.post.imageUrl),
+                                image: AssetImage(document['imgURL']),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
                           ),
                         ),
-                        Padding(
+                        Padding( // TO DO //
                           padding: EdgeInsets.symmetric(horizontal: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,10 +180,12 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                       IconButton(
                                         icon: Icon(Icons.favorite_border),
                                         iconSize: 30.0,
-                                        onPressed: () => print('Like post'),
+                                        onPressed: () {
+                                          likeIt() ;
+                                        },
                                       ),
                                       Text(
-                                        '2,515',
+                                        document['likes'].toString(),
                                         style: TextStyle(
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.w600,
@@ -171,7 +204,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                         },
                                       ),
                                       Text(
-                                        '350',
+                                        document['comments'].toString(),
                                         style: TextStyle(
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.w600,
@@ -207,12 +240,76 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                 ),
               ),
               child: Column(
-                children: <Widget>[
-                  _buildComment(0),
-                  _buildComment(1),
-                  _buildComment(2),
-                  _buildComment(3),
-                  _buildComment(4),
+                children: [
+                  Container(
+                    height: 500,
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('post')
+                            .doc(document.id)
+                            .collection('comments')
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) return Text("Error: ${snapshot.error}");
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return Text("Loading...");
+                            default:
+                              return ListView(
+                                scrollDirection: Axis.vertical,
+                                children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                                  return new Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: ListTile(
+                                      leading: Container(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: CircleAvatar(
+                                          child: ClipOval(
+                                            child: Image(
+                                              height: 50.0,
+                                              width: 50.0,
+                                              image: AssetImage(document['imgA']),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        document['content'],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      subtitle:Row(
+                                        children: [
+                                          Text(
+                                            document['name'],
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: IconButton(
+                                          icon: Icon(
+                                            Icons.delete_outline,
+                                          ),
+                                          color: Colors.grey,
+                                          onPressed: () {
+                                            FirebaseFirestore.instance.collection('post').doc(document['productId']).collection('comments').doc(document.id).delete();
+                                            decreaseCount();
+                                          }
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              );
+                          }
+                        }
+                    )
+                  ),
                 ],
               ),
             )
@@ -228,56 +325,68 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
             ),
-
             color: Colors.white,
           ),
           child: Padding(
             padding: EdgeInsets.all(12.0),
-            child: TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide(color: Colors.grey),
-                ),
-                contentPadding: EdgeInsets.all(20.0),
-                hintText: 'Add a comment',
-                prefixIcon: Container(
-                  margin: EdgeInsets.all(4.0),
-                  width: 48.0,
-                  height: 48.0,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-
+            child: Form(
+              key: _formKey,
+              child: TextField(
+                controller: _controller,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide(color: Colors.grey),
                   ),
-                  child: CircleAvatar(
-                    child: ClipOval(
-                      child: Image(
-                        height: 48.0,
-                        width: 48.0,
-                        image: AssetImage(widget.post.authorImageUrl),
-                        fit: BoxFit.cover,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  contentPadding: EdgeInsets.all(20.0),
+                  hintText: 'Add a comment',
+                  prefixIcon: Container(
+                    margin: EdgeInsets.all(4.0),
+                    width: 48.0,
+                    height: 48.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: CircleAvatar(
+                      child: ClipOval(
+                        child: Image(
+                          height: 48.0,
+                          width: 48.0,
+                          image: AssetImage(widget.document['imgA']),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                suffixIcon: Container(
-                  margin: EdgeInsets.only(right: 4.0),
-                  width: 70.0,
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    color: Color(0xFF23B66F),
-                    onPressed: () => print('Post comment'),
-                    child: Icon(
-                      Icons.send,
-                      size: 25.0,
-                      color: Colors.white,
+                  suffixIcon: Container(
+                    margin: EdgeInsets.only(right: 4.0),
+                    width: 70.0,
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      color: Color(0xFF23B66F),
+                      onPressed: () async {
+                        final String Comment = _controller.text;
+                        if (Comment == "") {
+                          print('다시 입력해주세요');
+                        }
+                        else if (_formKey.currentState!.validate()) {
+                          await addQuestion(_controller.text);
+                          addCount();
+                          _controller.clear();
+                        }
+                      },
+                      child: Icon(
+                        Icons.send,
+                        size: 25.0,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
