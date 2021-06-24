@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'add_feed_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key, required this.user}) : super(key: key);
 
@@ -35,6 +37,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           bottomNavigationBar: BottomBar(),
+          floatingActionButton: FloatingActionButton(
+            heroTag: "add_button",
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AddFeedScreen(),
+                ),
+              );
+            },
+            tooltip: "Add Feed",
+            child: Icon(Icons.add),
+          ),
         ),
       ),
     );

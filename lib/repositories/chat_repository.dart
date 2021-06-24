@@ -1,8 +1,7 @@
 // import 'package:advanced_flutter/models/feed_model.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter/cupertino.dart';
 //
-// class FeedRepository {
+// class ChatRepository {
 //   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 //
 //   @override
@@ -11,7 +10,7 @@
 //
 //     try {
 //       var feedCollection =
-//           await _firebaseFirestore.collection('post').get();
+//       await _firebaseFirestore.collection('post').get();
 //       for (var feed in feedCollection.docs){
 //         feeds.add(FeedModel.fromDocumentSnapshot(feed));
 //       }
