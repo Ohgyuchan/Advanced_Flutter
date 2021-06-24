@@ -1,16 +1,16 @@
+import 'package:advanced_flutter/screens/chat_screen.dart';
+import 'package:advanced_flutter/screens/feed_screen.dart';
 import 'package:advanced_flutter/screens/profile_screen.dart';
 import 'package:advanced_flutter/screens/shop_screen.dart';
 import 'package:advanced_flutter/widgets/bottom_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'chat_screen.dart';
-import 'feed_screen.dart';
-
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key, required this.title}) : super(key: key);
+  HomeScreen({Key? key, required this.user}) : super(key: key);
 
-  final String title;
+  final User user;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: DefaultTabController(
         length: 4,
         child: Scaffold(
