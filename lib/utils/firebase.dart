@@ -18,8 +18,12 @@ Future<void> addFeed(
   'like': '0',
   'likes': 0,
   })
-      .then((value) => print("Post Added"))
-      .catchError((error) => print("Failed to add Post: $error"));
+      .then((value) async{
+        post.doc(value.id).set({
+          'docId': value.id,
+          'filePath' : value.id + '.jpg',
+        }, SetOptions(merge: true));
+  });
 }
 
 Future<void> updatePosted(String uid, bool posted) async {

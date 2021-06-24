@@ -6,8 +6,17 @@ import 'package:advanced_flutter/widgets/bottom_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import 'add_feed_screen.dart';
+
+
+Future<String> downloadURL(String filePath) async {
+  return await firebase_storage.FirebaseStorage.instance
+      .ref(filePath)
+      .getDownloadURL();
+}
+
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key, required this.user}) : super(key: key);
@@ -43,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => AddFeedScreen(),
+                  builder: (context) => AddFeedScreen(downloadImageURL: downloadURL('brocoli_logo.jpg'),),
                 ),
               );
             },
@@ -54,4 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  downloadURL(String s) {}
 }
