@@ -4,6 +4,7 @@ import 'package:advanced_flutter/models/feed_model.dart';
 import 'package:advanced_flutter/utils/firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:hashtagable/hashtagable.dart';
+import 'package:intl/intl.dart';
 
 class ViewPostScreen extends StatefulWidget {
   const ViewPostScreen({Key? key, required FeedModel feedModel})
@@ -18,12 +19,28 @@ class ViewPostScreen extends StatefulWidget {
 
 class _ViewPostScreenState extends State<ViewPostScreen> {
   late FeedModel _feedModel;
+  late bool _isLiked;
 
   @override
   void initState() {
     _feedModel = widget._feedModel;
-
+    _isLiked = _feedModel.like.contains(currentUser.uid);
     super.initState();
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      if (_isLiked) {
+        _isLiked = false;
+      } else {
+        _isLiked = true;
+        increaseLike(
+            _feedModel.documentSnapshot,
+            _feedModel.docId,
+            _feedModel.uid
+        );
+      }
+    });
   }
 
   final _formKey = GlobalKey<FormState>(debugLabel: '_CommentState');
@@ -31,7 +48,6 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool _isLiked = false;
     return Scaffold(
       backgroundColor: Color(0xFFEDF0F6),
       body: SingleChildScrollView(
@@ -89,7 +105,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   ),
                                 ),
                                 subtitle:
-                                    Text(_feedModel.createdTime.toString()),
+                                    Text('${DateFormat('yyyy/MM/dd').format(_feedModel.createdTime.toDate()).toString()}'),
                                 trailing: IconButton(
                                   icon: Icon(Icons.more_horiz),
                                   color: Colors.black,
@@ -112,23 +128,6 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                 print(text);
                               },
                             ),
-                            HashTagTextField(
-                              basicStyle:
-                                  TextStyle(fontSize: 15, color: Colors.black),
-                              decoratedStyle:
-                                  TextStyle(fontSize: 15, color: Colors.blue),
-                              keyboardType: TextInputType.multiline,
-
-                              /// Called when detection (word starts with #, or # and @) is being typed
-                              onDetectionTyped: (text) {
-                                print(text);
-                              },
-
-                              /// Called when detection is fully typed
-                              onDetectionFinished: () {
-                                print("detection finished");
-                              },
-                            ),
                           ],
                         ),
                         InkWell(
@@ -136,12 +135,12 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                           child: Container(
                             margin: EdgeInsets.all(10.0),
                             width: double.infinity,
-                            height: 400.0,
+                            height: 370.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25.0),
                               image: DecorationImage(
                                 //피드 이미
-                                image: NetworkImage('${currentUser.photoURL}'),
+                                image: NetworkImage(_feedModel.imageUrl),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
@@ -158,16 +157,9 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   Row(
                                     children: <Widget>[
                                       IconButton(
-                                        icon: Icon(_isLiked == false
-                                            ? Icons.favorite_border
-                                            : Icons.favorite),
+                                        icon: Icon(_isLiked == false ? Icons.favorite_border : Icons.favorite),
                                         iconSize: 30.0,
-                                        onPressed: () {
-                                          increaseLike(
-                                              _feedModel.documentSnapshot,
-                                              _feedModel.docId,
-                                              _feedModel.uid);
-                                        },
+                                        onPressed: _toggleFavorite,
                                       ),
                                       Text(
                                         _feedModel.likes.toString(),

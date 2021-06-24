@@ -15,7 +15,7 @@ Future<void> addFeed(
   'createdTime': new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
   'description': description,
   'comments': 0,
-  'like': '0',
+  'like': [],
   'likes': 0,
   })
       .then((value) async{
@@ -63,11 +63,14 @@ Future<void> decreaseComments(DocumentSnapshot data, String docId) {
 
 Future<void> increaseLike(
     DocumentSnapshot data, String docId, String uid) async {
-  return post
+  await post
       .doc(docId)
       .update({
-        'likes': data['like'].length,
-      })
-      .then((value) => print("Product Edited"))
-      .catchError((error) => print("Failed to edit product: $error"));
+        'like' : FieldValue.arrayUnion([uid]),
+      });
+  await post
+      .doc(docId)
+      .update({
+    'likes': data['like'].length,
+  });
 }

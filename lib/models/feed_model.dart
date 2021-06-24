@@ -14,7 +14,7 @@ class FeedModel extends StatefulWidget {
   late final Timestamp createdTime;
   late final String description;
   late final int comments;
-  late final String like;
+  late final List<dynamic> like;
   late final int likes;
   late final String docId;
   late final DocumentSnapshot documentSnapshot;
