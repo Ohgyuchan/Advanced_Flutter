@@ -140,7 +140,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25.0),
                               image: DecorationImage(
-                                //피드 이미
+                                //피드 이미지 
                                 image: NetworkImage('${currentUser.photoURL}'),
                                 fit: BoxFit.fitWidth,
                               ),
