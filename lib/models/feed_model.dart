@@ -44,35 +44,37 @@ class _FeedModelState extends State<FeedModel> {
 
   Widget _buildFeedScreen() {
     return InkWell(
-        child: Card(
-          elevation: 0,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                AspectRatio(
-                  aspectRatio: 18 / 11,
-                  child: Hero(
-                    tag: 'img-${widget.uid}',
-                    child: Image.network(
-                      widget.profileImageUrl,
-                      height: 200,
-                      fit: BoxFit.fitWidth,
+        child: Flexible(
+          child: Card(
+            elevation: 0,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  AspectRatio(
+                    aspectRatio: 18 / 11,
+                    child: Hero(
+                      tag: 'img-${widget.uid}',
+                      child: Image.network(
+                        widget.profileImageUrl,
+                        height: 200,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 16),
-                SizedBox(height: 16),
-                _buildCardRow(context, '', widget.name),
-                SizedBox(
-                    height: 8.0 / MediaQuery.of(context).size.height * 0.2),
-                _buildCardRow(context, '', widget.createdTime.toString()),
-                SizedBox(
-                    height: 4.0 / MediaQuery.of(context).size.height * 0.2),
-                _buildCardRow(context, '', widget.description),
-              ],
+                  SizedBox(height: 16),
+                  SizedBox(height: 16),
+                  _buildCardRow(context, '', widget.name),
+                  SizedBox(
+                      height: 8.0 / MediaQuery.of(context).size.height * 0.2),
+                  _buildCardRow(context, '', widget.createdTime.toString()),
+                  SizedBox(
+                      height: 4.0 / MediaQuery.of(context).size.height * 0.2),
+                  _buildCardRow(context, '', widget.description),
+                ],
+              ),
             ),
           ),
         ),
