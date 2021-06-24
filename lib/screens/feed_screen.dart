@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:advanced_flutter/models/post_model.dart';
 import 'package:advanced_flutter/screens/view_post_screen.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -35,7 +34,9 @@ class _FeedScreenState extends State<FeedScreen> {
                       IconButton(
                         icon: Icon(Icons.live_tv),
                         iconSize: 30.0,
-                        onPressed: () => print('IGTV'),
+                        onPressed: () {
+
+                        },
                       ),
                       SizedBox(width: 16.0),
                       Container(
@@ -119,7 +120,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                         InkWell(
                                           onDoubleTap: () => print('Like post'),
                                           onTap: () =>
-                                              Navigator.push(context, MaterialPageRoute(builder: (_) => ViewPostScreen(document: document,))),
+                                              Navigator.push(context, MaterialPageRoute(builder: (_) => ViewPostScreen(document: document))),
                                           child: Container(
                                             margin: EdgeInsets.all(10.0),
                                             width: double.infinity,
@@ -163,7 +164,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                                         icon: Icon(Icons.chat),
                                                         iconSize: 30.0,
                                                         onPressed: () =>
-                                                            Navigator.push(context, MaterialPageRoute(builder: (_) => ViewPostScreen(document: document,))),
+                                                            Navigator.push(context, MaterialPageRoute(builder: (_) => ViewPostScreen(document: document))),
                                                       ),
                                                       Text(
                                                         document['comments'].toString(),

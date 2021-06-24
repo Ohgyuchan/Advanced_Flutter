@@ -1,39 +1,32 @@
+import 'package:advanced_flutter/models/post_model.dart';
+import 'package:advanced_flutter/screens/view_post_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
 class Comment {
-  String authorName;
-  String authorImageUrl;
-  String text;
+  final Timestamp creationData ;
+  final Timestamp updateData ;
+  final String userId ;
+  final String email ;
+  final String productId ;
+  final String content ;
+  final String name ;
+  final String imgA ;
+  final String imgURL ;
+  final int likes ;
+  final DocumentSnapshot documentSnapshot;
 
   Comment({
-    required this.authorName,
-    required this.authorImageUrl,
-    required this.text,
+    required this.creationData,
+    required this.updateData,
+    required this.userId,
+    required this.email,
+    required this.productId,
+    required this.content,
+    required this.name,
+    required this.imgA,
+    required this.imgURL,
+    required this.likes,
+    required this.documentSnapshot,
   });
 }
-
-final List<Comment> comments = [
-  Comment(
-    authorName: 'Angel',
-    authorImageUrl: 'assets/images/user2.jpg',
-    text: 'Loving this photo!!',
-  ),
-  Comment(
-    authorName: 'Charlie',
-    authorImageUrl: 'assets/images/user3.jpg',
-    text: 'One of the best photos of you...',
-  ),
-  Comment(
-    authorName: 'Angelina Martin',
-    authorImageUrl: 'assets/images/user4.jpg',
-    text: 'Can\'t wait for you to post more!',
-  ),
-  Comment(
-    authorName: 'Jax',
-    authorImageUrl: 'assets/images/user1.jpg',
-    text: 'Nice job',
-  ),
-  Comment(
-    authorName: 'Sam Martin',
-    authorImageUrl: 'assets/images/user2.jpg',
-    text: 'Thanks everyone :)',
-  ),
-];

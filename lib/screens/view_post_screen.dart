@@ -1,8 +1,7 @@
+import 'package:advanced_flutter/screens/sign_in_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:advanced_flutter/models/comment_model.dart';
-import 'package:advanced_flutter/models/post_model.dart';
 
 class ViewPostScreen extends StatefulWidget {
   DocumentSnapshot document;
@@ -47,7 +46,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
       'comments': document['comments'] + 1,
       'likes' : document['like'].length,
     })
-        .then((value) => print("Product Edited"))
+        .then((value) => print("Count is increased"))
         .catchError((error) => print("Failed to edit product: $error"));
   }
 
@@ -63,18 +62,33 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
       'comments': document['comments'] - 1,
       'likes' : document['like'].length,
     })
-        .then((value) => print("Product Edited"))
+        .then((value) => print("Count is decreased"))
         .catchError((error) => print("Failed to edit product: $error"));
   }
-
-
 
   CollectionReference post3 = FirebaseFirestore.instance.collection('post');
   Future<void> likeIt() async {
     return post3
         .doc(document.id)
         .set({
-      'like' : FieldValue.arrayUnion([document['name']]),
+      'like' : FieldValue.arrayUnion([currentUser.uid]),
+      'name' : document['name'],
+      'imgA' : document['imgA'],
+      'imgURL' : document['imgURL'],
+      'time' : document['time'],
+      'comments': document['comments'],
+      'likes' : document['like'].length,
+    })
+        .then((value) => print("Product Edited"))
+        .catchError((error) => print("Failed to edit product: $error"));
+  }
+
+  CollectionReference post4 = FirebaseFirestore.instance.collection('post');
+  Future<void> hateIt() async {
+    return post4
+        .doc(document.id)
+        .set({
+      'like' : FieldValue.arrayUnion([currentUser.uid]),
       'name' : document['name'],
       'imgA' : document['imgA'],
       'imgURL' : document['imgURL'],
@@ -88,6 +102,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool _isLiked = false;
     return Scaffold(
       backgroundColor: Color(0xFFEDF0F6),
       body: SingleChildScrollView(
@@ -155,14 +170,15 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                           ],
                         ),
                         InkWell(
-                          onDoubleTap: () => print('Like post'),
+                          onDoubleTap: () {
+                            likeIt() ;
+                          },
                           child: Container(
                             margin: EdgeInsets.all(10.0),
                             width: double.infinity,
                             height: 400.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25.0),
-
                               image: DecorationImage(
                                 image: AssetImage(document['imgURL']),
                                 fit: BoxFit.fitWidth,
@@ -180,10 +196,15 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                   Row(
                                     children: <Widget>[
                                       IconButton(
-                                        icon: Icon(Icons.favorite_border),
+                                        icon: Icon(_isLiked == false ? Icons.favorite_border : Icons.favorite),
                                         iconSize: 30.0,
                                         onPressed: () {
-                                          likeIt() ;
+                                          if (document['index'] == 0) {
+                                            likeIt() ;
+                                            setState(() {
+                                              _isLiked = true;
+                                            });
+                                          }
                                         },
                                       ),
                                       Text(
@@ -244,73 +265,73 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
               child: Column(
                 children: [
                   Container(
-                    height: 500,
-                    child: StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection('post')
-                            .doc(document.id)
-                            .collection('comments')
-                            .snapshots(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasError) return Text("Error: ${snapshot.error}");
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.waiting:
-                              return Text("Loading...");
-                            default:
-                              return ListView(
-                                scrollDirection: Axis.vertical,
-                                children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                                  return new Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: ListTile(
-                                      leading: Container(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: CircleAvatar(
-                                          child: ClipOval(
-                                            child: Image(
-                                              height: 50.0,
-                                              width: 50.0,
-                                              image: AssetImage(document['imgA']),
-                                              fit: BoxFit.cover,
+                      height: 500,
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('post')
+                              .doc(document.id)
+                              .collection('comments')
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) return Text("Error: ${snapshot.error}");
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return Text("Loading...");
+                              default:
+                                return ListView(
+                                  scrollDirection: Axis.vertical,
+                                  children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                                    return new Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: ListTile(
+                                        leading: Container(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: CircleAvatar(
+                                            child: ClipOval(
+                                              child: Image(
+                                                height: 50.0,
+                                                width: 50.0,
+                                                image: AssetImage(document['imgA']),
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      title: Text(
-                                        document['content'],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
+                                        title: Text(
+                                          document['content'],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        subtitle:Row(
+                                          children: [
+                                            Text(
+                                              document['name'],
+                                            ),
+                                          ],
+                                        ),
+                                        trailing: IconButton(
+                                            icon: Icon(
+                                              Icons.delete_outline,
+                                            ),
+                                            color: Colors.grey,
+                                            onPressed: () {
+                                              FirebaseFirestore.instance.collection('post').doc(document['productId']).collection('comments').doc(document.id).delete();
+                                              decreaseCount();
+                                            }
                                         ),
                                       ),
-                                      subtitle:Row(
-                                        children: [
-                                          Text(
-                                            document['name'],
-                                          ),
-                                        ],
-                                      ),
-                                      trailing: IconButton(
-                                          icon: Icon(
-                                            Icons.delete_outline,
-                                          ),
-                                          color: Colors.grey,
-                                          onPressed: () {
-                                            FirebaseFirestore.instance.collection('post').doc(document['productId']).collection('comments').doc(document.id).delete();
-                                            decreaseCount();
-                                          }
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              );
+                                    );
+                                  }).toList(),
+                                );
+                            }
                           }
-                        }
-                    )
+                      )
                   ),
                 ],
               ),

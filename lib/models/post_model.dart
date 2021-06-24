@@ -1,39 +1,26 @@
+import 'package:advanced_flutter/screens/view_post_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 class Post {
-  String authorName;
-  String authorImageUrl;
-  String timeAgo;
-  String imageUrl;
+  final String name ;
+  final String imgA ;
+  final String imgURL ;
+  final String time ;
+  final int comments ;
+  final String like ;
+  final int likes ;
+  final DocumentSnapshot documentSnapshot;
 
   Post({
-    required this.authorName,
-    required this.authorImageUrl,
-    required this.timeAgo,
-    required this.imageUrl,
+    required this.name,
+    required this.imgA,
+    required this.imgURL,
+    required this.time,
+    required this.comments,
+    required this.like,
+    required this.likes,
+    required this.documentSnapshot,
   });
 }
-
-final List<Post> posts = [
-  Post(
-    authorName: 'Sam Martin',
-    authorImageUrl: 'assets/images/user2.jpg',
-    timeAgo: '5 min',
-    imageUrl: 'assets/images/post0.png',
-  ),
-  Post(
-    authorName: 'Sam Martin',
-    authorImageUrl: 'assets/images/user2.jpg',
-    timeAgo: '10 min',
-    imageUrl: 'assets/images/post1.jpg',
-  ),
-];
-
-final List<String> stories = [
-  'assets/images/user1.jpg',
-  'assets/images/user2.jpg',
-  'assets/images/user3.jpg',
-  'assets/images/user4.jpg',
-  'assets/images/user4.jpg',
-  'assets/images/user1.jpg',
-  'assets/images/user2.jpg',
-  'assets/images/user3.jpg',
-];
