@@ -38,6 +38,7 @@ Future<void> addComment(String docId, String comment) async {
     'name': currentUser.displayName,
     'profileImageUrl': currentUser.photoURL,
     'comment': comment,
+    'creationTime': DateTime.now(),
   });
 }
 

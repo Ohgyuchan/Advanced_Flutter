@@ -46,8 +46,7 @@ class _FeedModelState extends State<FeedModel> {
 
   Widget _buildFeedScreen() {
     return InkWell(
-        child:
-        Card(
+        child: Card(
           elevation: 0,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: Padding(
@@ -89,8 +88,8 @@ class _FeedModelState extends State<FeedModel> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-
-                          subtitle: Text('${DateFormat('yyyy/MM/dd').format(widget.createdTime.toDate()).toString()}'),
+                          subtitle: Text(
+                              '${DateFormat('yyyy/MM/dd').format(widget.createdTime.toDate()).toString()}'),
                           trailing: IconButton(
                             icon: Icon(Icons.more_horiz),
                             color: Colors.black,
@@ -99,8 +98,11 @@ class _FeedModelState extends State<FeedModel> {
                         ),
                         InkWell(
                           onDoubleTap: () => print('Like post'),
-                          onTap: () =>
-                              Navigator.push(context, MaterialPageRoute(builder: (_) => ViewPostScreen(feedModel: widget))),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      ViewPostScreen(feedModel: widget))),
                           child: Container(
                             margin: EdgeInsets.all(10.0),
                             width: double.infinity,
@@ -152,9 +154,12 @@ class _FeedModelState extends State<FeedModel> {
                                       IconButton(
                                           icon: Icon(Icons.chat),
                                           iconSize: 30.0,
-                                          onPressed: () =>
-                                              Navigator.push(context, MaterialPageRoute(builder: (_) => ViewPostScreen(feedModel: widget)))
-                                      ),
+                                          onPressed: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      ViewPostScreen(
+                                                          feedModel: widget)))),
                                       Text(
                                         widget.comments.toString(),
                                         style: TextStyle(
