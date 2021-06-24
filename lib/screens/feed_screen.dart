@@ -35,6 +35,7 @@ class _FeedScreenState extends State<FeedScreen> {
           itemBuilder: (context, index) {
             DocumentSnapshot data = snapshot.data!.docs[index];
             return FeedModel(
+              isProfile: false,
               uid: data['uid'],
               name: data['name'],
               profileImageUrl: data['profileImageUrl'],

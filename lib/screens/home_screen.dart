@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
               FeedScreen(),
               ShopScreen(),
               ChatScreen(),
-              ProfileScreen(),
+              MyProfileScreen(),
             ],
           ),
           bottomNavigationBar: BottomBar(),
