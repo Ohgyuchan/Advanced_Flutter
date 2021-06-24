@@ -17,7 +17,6 @@ class FeedModel extends StatefulWidget {
   late final String docId;
   late final DocumentSnapshot documentSnapshot;
 
-
   FeedModel({
     required this.isProfile,
     required this.uid,
@@ -44,63 +43,87 @@ class _FeedModelState extends State<FeedModel> {
   }
 
   Widget _buildFeedScreen() {
-    return InkWell(
-        child: SizedBox(
-          child: Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(height: 16),
-                  SizedBox(height: 16),
-                  _buildCardRow(context, '', widget.name),
-                  SizedBox(
-                      height: 8.0 / MediaQuery.of(context).size.height * 0.2),
-                  _buildCardRow(context, '', widget.createdTime.toString()),
-                  SizedBox(
-                      height: 4.0 / MediaQuery.of(context).size.height * 0.2),
-                  _buildCardRow(context, '', widget.description),
-                ],
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        InkWell(
+            child: SizedBox(
+              child: Card(
+                elevation: 0,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(height: 16),
+                      SizedBox(height: 16),
+                      _buildCardRow(context, '', widget.name),
+                      SizedBox(
+                          height:
+                              8.0 / MediaQuery.of(context).size.height * 0.2),
+                      _buildCardRow(context, '', widget.createdTime.toString()),
+                      SizedBox(
+                          height:
+                              4.0 / MediaQuery.of(context).size.height * 0.2),
+                      _buildCardRow(context, '', widget.description),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ViewPostScreen(feedModel: widget),
-            ),
-          );
-          print('clicked');
-        });
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ViewPostScreen(feedModel: widget),
+                ),
+              );
+              print('clicked');
+            }),
+        Divider(
+          color: Colors.black54,
+        )
+      ],
+    );
   }
 
   Widget _buildProfileScreen() {
-    return InkWell(
-        child: SizedBox(
-          child: Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(height: 16),
-                ],
-              ),
-            ),
-          ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            InkWell(
+                child: SizedBox(
+                  child: Card(
+                    elevation: 0,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 16),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ViewPostScreen(feedModel: widget),
+                    ),
+                  );
+                  print('clicked');
+                }),
+          ],
         ),
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ViewPostScreen(feedModel: widget),
-            ),
-          );
-          print('clicked');
-        });
+        Divider(
+          height: 10,
+          color: Colors.black54,
+        )
+      ],
+    );
   }
 
   Flex _buildCardRow(BuildContext context, String label, String value) {
