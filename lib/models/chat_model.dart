@@ -3,20 +3,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatModel extends StatefulWidget {
+  final String myUid;
+  final String myName;
   final String yourUid;
   final String yourName;
   final String lastMessage;
   final String date;
-  final String imgUrl;
+  final String yourImgUrl;
+  final String myImgUrl;
   final String docId;
   final DocumentSnapshot documentSnapshot;
 
   ChatModel({
+    required this.myUid,
+    required this.myName,
     required this.yourUid,
     required this.yourName,
     required this.lastMessage,
     required this.date,
-    required this.imgUrl,
+    required this.yourImgUrl,
+    required this.myImgUrl,
     required this.docId,
     required this.documentSnapshot,
   });
@@ -26,7 +32,6 @@ class ChatModel extends StatefulWidget {
 }
 
 class _ChatModelState extends State<ChatModel> {
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -80,17 +85,4 @@ class _ChatModelState extends State<ChatModel> {
       ],
     );
   }
-
-  // static Route<Object?> _dialogBuilder(
-  //     BuildContext context, Object? arguments) {
-  //   return DialogRoute<void>(
-  //     context: context,
-  //     builder: (BuildContext context) => const AlertDialog(
-  //       title: Text('This post has not yet been approved!',
-  //           style:
-  //               TextStyle(color: Colors.white70, fontWeight: FontWeight.bold)),
-  //       backgroundColor: Colors.grey,
-  //     ),
-  //   );
-  // }
 }
