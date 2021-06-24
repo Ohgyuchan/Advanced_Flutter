@@ -3,20 +3,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatModel extends StatefulWidget {
+  final String myUid;
+  final String myName;
   final String yourUid;
   final String yourName;
   final String lastMessage;
   final String date;
-  final String imgUrl;
+  final String yourImgUrl;
+  final String myImgUrl;
   final String docId;
   final DocumentSnapshot documentSnapshot;
 
   ChatModel({
+    required this.myUid,
+    required this.myName,
     required this.yourUid,
     required this.yourName,
     required this.lastMessage,
     required this.date,
-    required this.imgUrl,
+    required this.yourImgUrl,
+    required this.myImgUrl,
     required this.docId,
     required this.documentSnapshot,
   });
@@ -80,52 +86,3 @@ class _ChatModelState extends State<ChatModel> {
     );
   }
 }
-
-// static Route<Object?> _dialogBuilder(
-//     BuildContext context, Object? arguments) {
-//   return DialogRoute<void>(
-//     context: context,
-//     builder: (BuildContext context) => const AlertDialog(
-//       title: Text('This post has not yet been approved!',
-//           style:
-//               TextStyle(color: Colors.white70, fontWeight: FontWeight.bold)),
-//       backgroundColor: Colors.grey,
-//     ),
-//   );
-// }
-
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-//
-// class ChatModel {
-//   late final String yourUid;
-//   late final String yourName;
-//   late final String lastMessage;
-//   late final String date;
-//   late final String imgUrl;
-//   late final String docId;
-//   late DocumentSnapshot documentSnapshot;
-//
-//   ChatModel({
-//     required this.yourUid,
-//     required this.yourName,
-//     required this.lastMessage,
-//     required this.date,
-//     required this.imgUrl,
-//     required this.docId,
-//     required this.documentSnapshot,
-//   });
-//
-//   ChatModel.fromDocumentSnapshot(DocumentSnapshot data) {
-//     yourUid = data["yourUid"];
-//     yourName = data["yourName"];
-//     lastMessage = data["lastMessage"];
-//     date = data["date"];
-//     imgUrl = data["imgUrl"];
-//     docId = data["docId"];
-//     documentSnapshot = data;
-//   }
-// }
-//
-//
