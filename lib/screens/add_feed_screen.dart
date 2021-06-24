@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:advanced_flutter/screens/feed_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:advanced_flutter/utils/firebase.dart';
@@ -105,6 +103,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            // ignore: unnecessary_null_comparison
             _image == null
                 ? FutureBuilder<String>(
                     future: widget.downloadImageURL,
