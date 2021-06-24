@@ -1,5 +1,4 @@
 import 'package:advanced_flutter/utils/authentication.dart';
-import 'package:advanced_flutter/view_model/auth_view_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,9 +7,13 @@ import 'home_screen.dart';
 
 late User currentUser;
 
-class SignInScreen extends GetWidget<AuthViewModel>{
-  // @override
-  // _SignInScreenState createState() => _SignInScreenState();
+class SignInScreen extends StatefulWidget {
+  @override
+  _SignInScreenState createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +64,9 @@ class SignInScreen extends GetWidget<AuthViewModel>{
         ),
       ),
     );
+
   }
-}
+  }
 
 class GoogleSignInButton extends StatefulWidget {
   @override

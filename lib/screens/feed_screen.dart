@@ -4,12 +4,9 @@ import 'package:advanced_flutter/Management/GetxController.dart';
 import 'package:advanced_flutter/Management/UserController.dart';
 import 'package:advanced_flutter/repositories/feed_repository.dart';
 import 'package:advanced_flutter/screens/sign_in_screen.dart';
-import 'package:advanced_flutter/view_model/feed_view_model.dart';
 import 'package:advanced_flutter/widgets/feed_card.dart';
-import 'package:advanced_flutter/widgets/screen_status_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:advanced_flutter/models/post_model.dart';
-import 'package:advanced_flutter/screens/view_post_screen.dart';
 import 'package:get/get.dart';
 
 class FeedScreen extends GetWidget<AuthController> {
