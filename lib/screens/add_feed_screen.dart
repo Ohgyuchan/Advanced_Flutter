@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:advanced_flutter/utils/firebase.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:hashtagable/widgets/hashtag_text_field.dart';
 import 'package:image_picker/image_picker.dart';
 
 Future<void> uploadFile(String _path, String filePath) async {
@@ -150,7 +151,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
             SizedBox(height: 15.0),
             Container(
               padding: EdgeInsets.only(left: 20, right: 20),
-              child: TextField(
+              child: HashTagTextField(
                 decoration: InputDecoration(
                     focusedBorder: new UnderlineInputBorder(
                         borderSide: new BorderSide(

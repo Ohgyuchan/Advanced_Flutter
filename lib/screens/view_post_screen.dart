@@ -119,7 +119,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             HashTagText(
-                              text: "#Advenced_Flutter #Too_Easy",
+                              text: _feedModel.description,
                               decoratedStyle:
                                   TextStyle(fontSize: 14, color: Colors.blue),
                               basicStyle:
@@ -139,13 +139,9 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25.0),
                               image: DecorationImage(
-<<<<<<< HEAD
-                                //피드 이미
+
                                 image: NetworkImage(_feedModel.imageUrl),
-=======
-                                //피드 이미지 
-                                image: NetworkImage('${currentUser.photoURL}'),
->>>>>>> 199e20922a7a3806a2e9a098d07f19e537b35b44
+
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
