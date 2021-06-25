@@ -1,3 +1,4 @@
+import 'package:advanced_flutter/models/comment_model.dart';
 import 'package:advanced_flutter/screens/sign_in_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:advanced_flutter/models/feed_model.dart';
@@ -57,7 +58,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
             Container(
               padding: EdgeInsets.only(top: 40.0),
               width: double.infinity,
-              height: 600.0,
+              height: 555,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(25.0),
@@ -139,9 +140,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25.0),
                               image: DecorationImage(
-
                                 image: NetworkImage(_feedModel.imageUrl),
-
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
@@ -206,7 +205,10 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 10.0),
+            Container(
+              height: 500,
+              child: _buildCommentStream(),
+            ),
           ],
         ),
       ),
@@ -280,6 +282,37 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCommentStream() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection("post")
+          .doc(_feedModel.docId)
+          .collection('comments')
+          .orderBy('creationTime', descending: false)
+          .snapshots(),
+      builder: (context, snapshot) {
+        return !snapshot.hasData
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                scrollDirection: Axis.vertical,
+                padding: EdgeInsets.all(16.0),
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot data = snapshot.data!.docs[index];
+                  return CommentModel(
+                    name: data['name'],
+                    profileImageUrl: data['profileImageUrl'],
+                    comment: data['comment'],
+                    creationTime: data['creationTime'] as Timestamp,
+                    docId: data.id,
+                    documentSnapshot: data,
+                  );
+                },
+              );
+      },
     );
   }
 }
