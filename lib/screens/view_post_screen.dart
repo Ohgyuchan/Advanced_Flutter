@@ -58,7 +58,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
             Container(
               padding: EdgeInsets.only(top: 40.0),
               width: double.infinity,
-              height: 555,
+              height: 600,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(25.0),
